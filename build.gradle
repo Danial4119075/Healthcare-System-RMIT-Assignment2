@@ -1,0 +1,82 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
+}
+
+group = 'healthcare'
+version = '1.0'
+sourceCompatibility = '11'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // JavaFX
+    implementation 'org.openjfx:javafx-controls:17.0.2'
+    implementation 'org.openjfx:javafx-fxml:17.0.2'
+
+    // SQLite JDBC
+    implementation 'org.xerial:sqlite-jdbc:3.42.0.0'
+
+    // JUnit 5 for testing
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.0'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    // Logging
+    implementation 'org.slf4j:slf4j-api:2.0.7'
+    implementation 'org.slf4j:slf4j-simple:2.0.7'
+}
+
+javafx {
+    version = '17.0.2'
+    modules = ['javafx.controls', 'javafx.fxml']
+}
+
+application {
+    mainClass = 'healthcare.gui.MainApplication'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+// Task to run the application
+task runApp(type: JavaExec) {
+    group = 'application'
+    description = 'Run the Healthcare System application'
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'healthcare.gui.MainApplication'
+}
+
+// Task to run tests
+task testAll(type: Test) {
+    group = 'verification'
+    description = 'Run all unit tests'
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+        exceptionFormat "full"
+    }
+}
+
+// Handle duplicate resources gracefully
+tasks.processResources {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+// Create executable JAR
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'healthcare.gui.MainApplication',
+                'Implementation-Title': 'Healthcare System',
+                'Implementation-Version': archiveVersion
+        )
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}

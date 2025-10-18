@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="healthcare.gui.LoginController">
+   <children>
+      <Label text="Healthcare System Login" style="-fx-font-size: 18px; -fx-font-weight: bold;" alignment="CENTER">
+         <VBox.margin>
+            <Insets top="20.0" />
+         </VBox.margin>
+      </Label>
+      <GridPane hgap="10.0" vgap="10.0">
+         <columnConstraints>
+            <ColumnConstraints />
+            <ColumnConstraints />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
+            <RowConstraints />
+         </rowConstraints>
+         <VBox.margin>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </VBox.margin>
+         <children>
+            <Label text="Username:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <TextField fx:id="usernameField" GridPane.columnIndex="1" GridPane.rowIndex="0" prefWidth="200.0" />
+            <Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="1" prefWidth="200.0" />
+         </children>
+      </GridPane>
+      <HBox alignment="CENTER" spacing="10.0">
+         <children>
+            <Button fx:id="loginButton" onAction="#handleLogin" text="Login" prefWidth="80.0" />
+            <Button text="Demo Login" onAction="#handleDemoLogin" prefWidth="80.0" />
+         </children>
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin>
+      </HBox>
+      <Label fx:id="errorLabel" textFill="RED" alignment="CENTER">
+         <VBox.margin>
+            <Insets bottom="20.0" />
+         </VBox.margin>
+      </Label>
+   </children>
+</VBox>
